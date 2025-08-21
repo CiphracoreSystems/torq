@@ -1,88 +1,115 @@
-# Aviation Torque Converter
-
+# TorqSpec Pro
 [![Netlify Status](https://api.netlify.com/api/v1/badges/91ee9d18-9e3d-4de7-ae70-25d1010ec09a/deploy-status)](https://app.netlify.com/projects/amttorque/deploys)
 
 **🔗 Live Tool: [https://amttorque.netlify.app/](https://amttorque.netlify.app/)**
 
-Fast, bilingual torque conversions for aviation maintenance technicians. Convert between lb-in, lb-ft, N⋅m, kgf⋅m, oz-in, dN⋅m, and N⋅cm instantly.
+Professional aviation torque calculator with range input, setpoint guidance, visual gauges, and offline capability. Built for real maintenance environments.
 
 ## Features
 
-✈️ **Aviation-Focused** - Covers all common aviation torque units  
-🌐 **Bilingual** - Full English/Spanish interface  
-🎯 **Spec Mode** - Industry-standard precision matching OEM manuals  
-📱 **Mobile-Ready** - Works perfectly on phones and tablets  
-🔗 **Shareable** - Native share functionality for easy collaboration  
-⚡ **Instant** - Real-time conversions as you type  
-🚫 **Smart Validation** - Prevents negative torque values  
-📋 **Copy Values** - Individual or bulk copy for easy pasting  
+✈️ **Aviation Professional** - Complete torque specification workflow  
+🎯 **Range Input** - Handle "25-30 N⋅m" specifications with Low/Mid/High values  
+🔧 **Setpoint Calculation** - Account for your torque wrench resolution and rounding policy  
+📊 **Visual Gauges** - See exactly where your setpoint falls within the range  
+🎨 **Quality Indicators** - Real-time feedback on setpoint accuracy  
+🌐 **Bilingual** - Complete English/Spanish interface with aviation terminology  
+📱 **PWA Ready** - Install as app, works offline, mobile-optimized  
+🍔 **Professional UI** - Clean hamburger menu interface  
+📋 **Smart Copy** - Copy setpoints with full metadata for documentation  
+📖 **Help System** - Built-in user manual and guidance  
+🎨 **Dark/Light Themes** - Comfortable viewing in any environment  
+
+## Professional Workflow
+
+### Single Value Conversion
+1. **Enter Value** - Type "25" or any torque value
+2. **Select Units** - Choose from all aviation-standard units
+3. **Set Tool** - Match your torque wrench units and resolution
+4. **Get Setpoint** - See exact value to set on your wrench
+
+### Range Specifications  
+1. **Enter Range** - Type "25-30" for range specifications
+2. **Visual Gauge** - See Low/Mid/High positions graphically
+3. **Setpoint Guidance** - Get recommended setting based on midpoint
+4. **Quality Check** - Color-coded accuracy indicators
 
 ## Units Supported
+- **N⋅m** (Newton-meters) - Primary aviation standard
+- **lbf⋅in** (Pound-force inches) - Common US aviation
+- **lbf⋅ft** (Pound-force feet) - Larger fasteners
+- **kgf⋅m** (Kilogram-force meters) - International standard
+- **oz⋅in** (Ounce-inches) - Small fasteners
+- **dN⋅m** (Decinewton-meters) - Precision applications
+- **N⋅cm** (Newton-centimeters) - Small components
 
-- **lb-ft** (Pound-feet)
-- **lb-in** (Pound-inches) 
-- **N⋅m** (Newton-meters)
-- **kgf⋅m** (Kilogram-force meters)
-- **oz-in** (Ounce-inches)
-- **dN⋅m** (Decinewton-meters)
-- **N⋅cm** (Newton-centimeters)
+## Advanced Features
 
-## Usage
+### Tool Configuration
+- **Tool Unit** - Match your torque wrench display units
+- **Resolution** - Account for wrench graduation (0.1, 1, etc.)
+- **Rounding Policy** - Nearest/Up/Down per your QA procedures
 
-1. **Enter Value** - Type any torque value
-2. **Select Unit** - Choose the input unit from dropdown
-3. **See Results** - All conversions appear instantly
-4. **Copy Values** - Use individual copy buttons or "Copy All"
-5. **Share Tool** - Use Share button to send link to colleagues
+### OEM Rounding Mode
+Industry-standard precision matching manufacturer specifications:
+- **N⋅m**: 0.1 increments
+- **lbf⋅in**: Whole numbers  
+- **lbf⋅ft**: 0.5 increments
+- **kgf⋅m**: 0.1 increments
 
-## Professional Features
+### Quality Indicators
+- 🟢 **On Target** (≤1% error) - Excellent setpoint accuracy
+- 🟡 **Check Spec** (1-5% error) - Verify against approved data  
+- 🔴 **Review Needed** (>5% error) - Significant deviation
 
-### Spec Mode
-Toggle for OEM-style precision:
-- **lb-in**: Whole numbers (industry standard)
-- **N⋅m**: 0.1 precision (typical spec format)
-- **lb-ft**: 0.1 precision
-- And more...
+## Professional Use Cases
 
-### Aviation Notes
-Built-in reminders for proper torque procedures:
-- Most aviation fasteners specify torque in lb-in or N⋅m
-- Always refer to manufacturer specifications
-- Use calibrated torque wrenches for critical components
-- Factor in thread condition and lubrication
+- **Line Maintenance** - Quick range conversions and setpoint calculations
+- **Heavy Maintenance** - Complex specification workflows
+- **QA Documentation** - Copy setpoints with full traceability metadata
+- **International Teams** - Bilingual interface with proper aviation terminology
+- **Training** - Built-in help system and professional workflows
+- **Field Work** - Offline capability and mobile optimization
 
-## Technical Details
+## Technical Architecture
 
-- **Single File** - No dependencies, works offline
-- **Progressive Web App** - Can be installed on mobile devices
-- **Responsive Design** - Adapts to any screen size
-- **Accessibility** - ARIA labels and keyboard navigation
-- **Local Storage** - Remembers language preference
+### Progressive Web App (PWA)
+- **Offline Capability** - Works without internet after first load
+- **Installation** - Add to home screen like native app
+- **Service Worker** - Automatic caching and updates
+- **Mobile Optimized** - Touch-friendly interface for shop floor use
 
-## Use Cases
+### Development
+- **Single Page Application** - Vanilla HTML/CSS/JavaScript
+- **No Build Process** - Direct deployment capability  
+- **Responsive Design** - Works on all screen sizes
+- **Accessibility** - ARIA compliance and keyboard navigation
+- **Local Storage** - Persistent preferences and settings
 
-- **Line Maintenance** - Quick conversions during routine checks
-- **Heavy Maintenance** - Converting spec sheets between units
-- **Training** - Teaching torque specifications to new technicians
-- **International Teams** - Working with mixed unit standards
-- **Field Work** - Mobile-friendly for hangar or ramp use
+## Deployment
 
-## Development
+Deployed on Netlify with automatic GitHub integration:
+- **Auto-deploy** - Pushes to main branch trigger deployment
+- **HTTPS** - Secure connection for all users
+- **CDN** - Global content delivery for fast loading
+- **Custom Domain** - Professional URL structure
 
-Built with vanilla HTML, CSS, and JavaScript for maximum compatibility and performance. No build process required - just save and deploy.
-
-### Deployment
-
-The tool is deployed on Netlify with automatic builds. Any updates to the HTML file will trigger a new deployment.
+## Files Structure
+```
+├── index.html              # Main application
+├── manifest.webmanifest    # PWA configuration  
+├── sw.js                   # Service worker for offline
+└── README.md              # Documentation
+```
 
 ## License
-
 © Ciphracore Systems LLC - All rights reserved
 
 ## Contact
+**Enterprise Solutions** - Custom tools, white-label licensing, integration support  
+**Technical Support** - Tool development, training integration, calculations  
+**Partnership Inquiries** - MRO facilities, OEMs, training organizations  
 
-For feature requests or issues: [ciphracore@protonmail.com](mailto:ciphracore@protonmail.com)
+📧 [ciphracore@protonmail.com](mailto:ciphracore@protonmail.com)
 
 ---
-
-**Built for Aviation Maintenance Technicians by Aviation Professionals**
+**Built by Aviation Professionals for Aviation Maintenance Excellence**
