@@ -128,20 +128,6 @@
   }
   .disclaimer-text strong { color: var(--bad); }
   
-  .about-text {
-    color: var(--text);
-    line-height: 1.6;
-    font-size: 14px;
-  }
-  .about-text h4 {
-    color: var(--text);
-    margin: 16px 0 8px 0;
-    font-size: 16px;
-  }
-  .about-text em {
-    color: var(--muted);
-  }
-  
   /* Help accordion */
   .help details{margin:8px 0}
   .help summary{
@@ -162,7 +148,7 @@
 <div class="wrap">
   <header>
     <div class="brand">
-      <h1 data-i18n="title">TorqSpec Pro <span style="opacity:0.4; font-size:0.7em; font-weight:normal;">v1.4</span></h1>
+      <h1 data-i18n="title">TorqSpec Pro <span style="opacity:0.4; font-size:0.7em; font-weight:normal;">v1.3</span></h1>
       <div class="pill" id="kpi"></div>
     </div>
     <div class="toolbar">
@@ -197,10 +183,6 @@
           <div class="row">
             <span data-i18n="shareApp">Share App</span>
             <button id="shareBtn" class="btn" data-i18n="share">Share</button>
-          </div>
-          <div class="row">
-            <span data-i18n="about">About</span>
-            <button id="aboutBtn" class="btn" data-i18n="aboutBtn">Info</button>
           </div>
         </div>
       </div>
@@ -293,17 +275,6 @@
         </p>
 
         <div class="help-section">
-          <h3 data-i18n="helpUsageHeader">How to Use TorqSpec Pro</h3>
-          <ul>
-            <li data-i18n="helpUsageBasic"><b>Basic Conversion</b> — Type "25" in Value field, select From Unit, see instant conversions.</li>
-            <li data-i18n="helpUsageRange"><b>Range Specs</b> — Type "20-30" for range specifications. Shows Low/Mid/High values with visual gauge.</li>
-            <li data-i18n="helpUsageSetpoint"><b>Setpoints</b> — Set Tool Unit to your wrench and Resolution to its graduations (0.1, 1, etc). Shows exact value to dial in.</li>
-            <li data-i18n="helpUsageBadges"><b>Quality Badges</b> — Green=On Target, Yellow=Check Spec, Red=Review Needed.</li>
-            <li data-i18n="helpUsageCopy"><b>Copy Results</b> — Use Copy buttons for individual setpoints with full metadata.</li>
-          </ul>
-        </div>
-
-        <div class="help-section">
           <h3 data-i18n="helpMenuHeader">Menu Controls</h3>
           <ul>
             <li data-i18n="helpItemOEM"><b>OEM Rounding</b> — ON uses typical OEM increments; OFF shows exact values with your chosen policy.</li>
@@ -346,39 +317,6 @@
   </div>
 </div>
 
-<!-- About Modal -->
-<div id="aboutModal" class="modal">
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <h3 style="color: var(--accent); margin-top: 0;">About TorqSpec Pro</h3>
-    <div class="about-text">
-      <h4>Ciphracore Systems LLC</h4>
-      <p><em>Precision Aviation Maintenance Tools</em></p>
-      
-      <p>Specialized software solutions for aviation maintenance, inspection, and compliance workflows. Built by aviation professionals, for aviation professionals.</p>
-      
-      <h4>🔧 Need a Custom Tool?</h4>
-      <p>Have a specific calculation, conversion, or workflow that needs automation? Contact us with your requirements.</p>
-      
-      <h4>🏢 Enterprise Solutions</h4>
-      <p>Multi-site deployments, custom branding, integration with your maintenance systems, and white-label licensing available.</p>
-      
-      <h4>📱 Shop Floor Optimized</h4>
-      <p>Touch-friendly mobile interfaces designed for real maintenance environments. Available as standalone tools, offline-capable apps, or integrated with your existing maintenance infrastructure.</p>
-      
-      <h4>💼 Partnership & Sponsorship</h4>
-      <p>MRO facilities, training organizations, and OEMs: Contact us for partnership rates and co-development opportunities.</p>
-      
-      <h4>Contact</h4>
-      <p><strong>✉️ ciphracore@protonmail.com</strong><br/>
-      💬 "Describe your maintenance calculation challenge"</p>
-      
-      <p><em>Response time: 24-48 hours<br/>
-      Available for: Tool development, enterprise licensing, training integration, custom calculations</em></p>
-    </div>
-  </div>
-</div>
-
 <script>
 (function(){
   const $ = s=>document.querySelector(s);
@@ -391,9 +329,9 @@
   // Simple i18n
   const dict = {
     en: {
-      title: "TorqSpec Pro <span style='opacity:0.4; font-size:0.7em; font-weight:normal;'>v1.4</span>",
+      title: "TorqSpec Pro <span style='opacity:0.4; font-size:0.7em; font-weight:normal;'>v1.3</span>",
       oemRounding: "OEM Rounding", theme: "Theme", themeBtnLight: "Light", themeBtnDark: "Dark",
-      language: "Language", install: "Install", shareApp: "Share App", share: "Share", about: "About", aboutBtn: "Info",
+      language: "Language", install: "Install", shareApp: "Share App", share: "Share",
       valueOrRange: "Value or Range", valueHelp: "Enter a single value or a range like <b>10-13</b>. Units below.",
       fromUnit: "From Unit", toolUnit: "Tool Unit (Wrench)", sameAsFrom:"Same as From", toolUnitHelp:"Set to the units on your torque wrench.",
       resolution: "Tool Resolution", resolutionHelp:"Graduation size on your wrench (leave blank to skip setpoint rounding).",
@@ -401,12 +339,6 @@
       status:"Status", enterToBegin:"Enter a value to begin.", disclaimer:"Conversions and setpoints are <b>reference only</b>. Always use approved data (AMM/SRM/CMM/IPC) and calibrated tools. Follow your organization's procedures.",
       helpTitle: "Help / User Manual",
       helpIntro: "The ☰ menu (top-right) contains all options. This guide explains each control.",
-      helpUsageHeader: "How to Use TorqSpec Pro",
-      helpUsageBasic: "<b>Basic Conversion</b> — Type \"25\" in Value field, select From Unit, see instant conversions.",
-      helpUsageRange: "<b>Range Specs</b> — Type \"20-30\" for range specifications. Shows Low/Mid/High values with visual gauge.",
-      helpUsageSetpoint: "<b>Setpoints</b> — Set Tool Unit to your wrench and Resolution to its graduations (0.1, 1, etc). Shows exact value to dial in.",
-      helpUsageBadges: "<b>Quality Badges</b> — Green=On Target, Yellow=Check Spec, Red=Review Needed.",
-      helpUsageCopy: "<b>Copy Results</b> — Use Copy buttons for individual setpoints with full metadata.",
       helpMenuHeader: "Menu Controls",
       helpItemOEM: "<b>OEM Rounding</b> — ON uses typical OEM increments; OFF shows exact values with your chosen policy.",
       helpItemTheme: "<b>Theme</b> — Button shows the <i>target</i> mode. \"Light\" switches to Light, \"Dark\" switches to Dark.",
@@ -418,9 +350,9 @@
       helpNoteOffline: "Offline mode works after first load or installation."
     },
     es: {
-      title: "TorqSpec Pro <span style='opacity:0.4; font-size:0.7em; font-weight:normal;'>v1.4</span>",
+      title: "TorqSpec Pro <span style='opacity:0.4; font-size:0.7em; font-weight:normal;'>v1.3</span>",
       oemRounding: "Redondeo OEM", theme: "Tema", themeBtnLight: "Claro", themeBtnDark: "Oscuro",
-      language: "Idioma", install: "Instalar", shareApp: "Compartir App", share: "Compartir", about: "Acerca de", aboutBtn: "Info",
+      language: "Idioma", install: "Instalar", shareApp: "Compartir App", share: "Compartir",
       valueOrRange: "Valor o Rango", valueHelp: "Ingrese un valor único o un rango como <b>10-13</b>. Unidades abajo.",
       fromUnit: "Unidad de origen", toolUnit: "Unidad de herramienta (llave)", sameAsFrom:"Igual que Origen", toolUnitHelp:"Ajuste a las unidades de su llave dinamométrica.",
       resolution: "Resolución de la herramienta", resolutionHelp:"Tamaño de graduación (dejar en blanco para omitir el redondeo).",
@@ -428,12 +360,6 @@
       status:"Estado", enterToBegin:"Ingrese un valor para comenzar.", disclaimer:"Las conversiones y puntos de ajuste son <b>solo de referencia</b>. Utilice siempre datos aprobados (AMM/SRM/CMM/IPC) y herramientas calibradas. Siga los procedimientos de su organización.",
       helpTitle: "Ayuda / Manual de usuario",
       helpIntro: "El menú ☰ (arriba a la derecha) contiene todas las opciones. Esta guía explica cada control.",
-      helpUsageHeader: "Cómo usar TorqSpec Pro",
-      helpUsageBasic: "<b>Conversión básica</b> — Escriba \"25\" en el campo Valor, seleccione Unidad, vea conversiones instantáneas.",
-      helpUsageRange: "<b>Rangos</b> — Escriba \"20-30\" para especificaciones de rango. Muestra valores Bajo/Medio/Alto con medidor visual.",
-      helpUsageSetpoint: "<b>Puntos de ajuste</b> — Configure Unidad de herramienta a su llave y Resolución a sus graduaciones (0.1, 1, etc). Muestra valor exacto para ajustar.",
-      helpUsageBadges: "<b>Insignias de calidad</b> — Verde=En objetivo, Amarillo=Verificar especificación, Rojo=Revisar necesario.",
-      helpUsageCopy: "<b>Copiar resultados</b> — Use botones Copiar para puntos de ajuste individuales con metadatos completos.",
       helpMenuHeader: "Controles del menú",
       helpItemOEM: "<b>Redondeo OEM</b> — ACTIVADO usa incrementos típicos del manual; DESACTIVADO muestra valores exactos con su política.",
       helpItemTheme: "<b>Tema</b> — El botón muestra el modo <i>destino</i>. \"Claro\" cambia a Claro; \"Oscuro\" cambia a Oscuro.",
@@ -715,32 +641,6 @@
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && modal.style.display === "block") {
       modal.style.display = "none";
-    }
-  });
-
-  // About Modal
-  const aboutModal = $("#aboutModal");
-  const aboutBtn = $("#aboutBtn");
-  
-  aboutBtn?.addEventListener("click", () => {
-    aboutModal.style.display = "block";
-    closeMenu();
-  });
-
-  // Handle all close buttons and modal clicks
-  document.addEventListener("click", (e) => {
-    if (e.target.classList.contains("close")) {
-      document.querySelectorAll(".modal").forEach(m => m.style.display = "none");
-    }
-    if (e.target.classList.contains("modal")) {
-      e.target.style.display = "none";
-    }
-  });
-
-  // Close any modal with Escape key
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") {
-      document.querySelectorAll(".modal").forEach(m => m.style.display = "none");
     }
   });
 
