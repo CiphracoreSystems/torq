@@ -1,5 +1,5 @@
-// TorqSpec Pro v1.4 - Service Worker for offline functionality
-const CACHE = "torqspec-v1.4";
+// TorqSpec Pro v1.4.1 - Service Worker for offline functionality
+const CACHE = "torqspec-v1.4.1";
 self.addEventListener("install", e=>{
   e.waitUntil(caches.open(CACHE).then(c=>c.addAll(["./","./index.html","./manifest.webmanifest"])));
   self.skipWaiting();

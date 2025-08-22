@@ -1,6 +1,6 @@
 {
-  "name": "TorqSpec Pro v1.4 - Aviation Torque Calculator",
-  "short_name": "TorqSpec Pro v1.4",
+  "name": "TorqSpec Pro v1.4.1 - Aviation Torque Calculator",
+  "short_name": "TorqSpec Pro v1.4.1",
   "description": "Professional aviation torque calculator with range input, setpoint guidance, and offline capability",
   "start_url": "./index.html",
   "display": "standalone",
