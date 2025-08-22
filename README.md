@@ -1,14 +1,13 @@
-# TorqSpec Pro
+# TorqSpec Calculator
 
 <div align="center">
   
   [![Netlify Status](https://api.netlify.com/api/v1/badges/YOUR-BADGE-ID/deploy-status)](https://app.netlify.com/sites/amttorque/deploys)
-  [![License](https://img.shields.io/badge/license-Proprietary-blue.svg)](LICENSE)
   [![Version](https://img.shields.io/badge/version-1.4.1-green.svg)](https://github.com/CiphracoreSystems/torq/releases)
   
-  **Professional Aviation Maintenance Torque Reference System**
+  **Torque Unit Conversion Calculator**
   
-  [Live Application](https://amttorque.netlify.app) | [Report Issue](https://github.com/CiphracoreSystems/torq/issues) | [Contact Us](mailto:ciphracore@protonmail.com)
+  [Live Application](https://amttorque.netlify.app) | [Report Issue](https://github.com/CiphracoreSystems/torq/issues) | [Contact](mailto:ciphracore@protonmail.com)
 
 </div>
 
@@ -16,150 +15,121 @@
 
 ## 🎯 Overview
 
-**TorqSpec Pro** is a precision torque specification and conversion tool designed specifically for aviation maintenance professionals, MRO facilities, and critical industry applications. Built with a focus on accuracy, speed, and reliability, it provides instant access to torque values, conversions, and safety-critical calculations directly from any device.
+**TorqSpec Calculator** is a torque unit conversion tool that performs mathematical conversions between common torque measurement units. It's designed as a quick reference calculator for converting values between different unit systems.
 
-## ✨ Key Features
+## ✨ Features
 
 ### 🔧 Core Functionality
-- **Multi-Unit Conversion**: Seamlessly convert between lb·in, lb·ft, N·m, kg·cm with aviation-grade precision
-- **Torque Range Calculations**: Automatic ±10% tolerance calculations per industry standards
-- **OEM Rounding Options**: Configurable rounding to match manufacturer specifications
-- **Policy Settings**: Conservative, standard, and precision modes for different use cases
+- **Unit Conversion**: Convert between lb·in, lb·ft, N·m, and kg·cm
+- **Range Calculations**: Apply percentage-based ranges to any value
+- **Multiple Rounding Options**: Choose your preferred decimal precision
+- **Quick Reference**: Fast conversions without complex menus
 
-### 📱 Professional Design
-- **Mobile-First Interface**: Optimized for tablets and phones on the shop floor
-- **Dark/Light Themes**: Reduce eye strain in various lighting conditions
-- **Multi-Language Support**: English, Spanish, French interfaces
-- **Offline Capable**: Works without internet connection once loaded
+### 📱 Interface
+- **Mobile-Friendly**: Works on phones, tablets, and desktops
+- **Dark/Light Themes**: Choose your preferred viewing mode
+- **Multi-Language**: Available in English, Spanish, and French
+- **Offline Capable**: Works without internet once loaded
+- **PWA Support**: Installable as an app on your device
 
-### 🎨 Visual Tools
-- **Live Gauge Display**: Real-time visual torque representation
-- **Color-Coded Ranges**: Instant visual feedback for torque limits
-- **Responsive Indicators**: Clear marking of safe operating ranges
+### 🎨 Visual Display
+- **Gauge Visualization**: See your values on a visual gauge
+- **Color Coding**: Visual representation of value ranges
+- **Clean Layout**: Simple, uncluttered interface
 
-## 🚀 Deployment
+## 🧮 What This Tool Does
 
-The application is continuously deployed via Netlify from this repository's `main` branch.
+This is a **mathematical conversion calculator**. It:
+- Converts torque values between units using standard conversion factors
+- Applies user-specified percentage ranges
+- Rounds results based on user preference
+- Displays results in multiple formats
 
-### Quick Deploy
+## ⚠️ Important Disclaimer
+
+**This is a calculator only.** 
+- It performs unit conversions using mathematical formulas
+- It does NOT provide engineering specifications
+- It does NOT determine appropriate torque values
+- Always consult proper documentation for actual specifications
+- The user is responsible for inputting correct values and ranges
+
+## 🚀 Usage
+
+### Web Access
+Visit: https://amttorque.netlify.app
+
+### Install as App (PWA)
+1. Open the website on your device
+2. Look for "Install" or "Add to Home Screen" option
+3. The app will work offline once installed
+
+### Local Usage
 ```bash
-# Clone the repository
+# Clone and open
 git clone https://github.com/CiphracoreSystems/torq.git
 cd torq
-
-# Open locally
 open index.html
-
-# Or serve with any static server
-python -m http.server 8000
-# Navigate to http://localhost:8000
 ```
-
-### Enterprise Deployment
-For enterprise installations, custom deployments, or air-gapped environments, contact our team for specialized solutions.
 
 ## 🏢 About CiphracoreSystems
 
-CiphracoreSystems specializes in developing professional-grade maintenance software for the aviation industry. Our tools are designed by maintenance professionals, for maintenance professionals.
+We develop practical tools and calculators for technical professionals. Our focus is on creating simple, reliable utilities that solve everyday problems.
 
-### Our Mission
-To provide reliable, accurate, and user-friendly digital tools that enhance safety and efficiency in aviation maintenance operations.
+## 💼 Contact
 
-### Our Products
-- **TorqSpec Pro**: Precision torque reference system
-- **Maintenance Logger**: Digital maintenance tracking (Coming Soon)
-- **Compliance Tracker**: Regulatory compliance management (In Development)
+**General Inquiries**: ciphracore@protonmail.com
 
-## 💼 Enterprise & Partnership
+**Bug Reports**: [GitHub Issues](https://github.com/CiphracoreSystems/torq/issues)
 
-### Available Services
-- **Custom Development**: Tailored features for your organization
-- **Enterprise Licensing**: Multi-user and site licenses
-- **Training Integration**: Embed in your training programs
-- **API Access**: Integrate with existing maintenance systems
-- **White-Label Solutions**: Custom branding for your organization
+**Feature Requests**: Open an issue or email us
 
-### Current Partners
-We work with:
-- MRO Facilities
-- Airlines & Operators
-- Training Organizations
-- OEM Service Centers
-- Military Contractors
+## 🛠️ Technical Details
 
-## 📞 Contact & Support
-
-**Business Inquiries**: ciphracore@protonmail.com
-
-**Technical Support**: [GitHub Issues](https://github.com/CiphracoreSystems/torq/issues)
-
-**Response Time**: 24-48 hours for business inquiries
-
-### Get in Touch
-- Describe your maintenance software needs
-- Request a demo or trial
-- Discuss partnership opportunities
-- Report bugs or request features
-
-## 🔒 Security & Compliance
-
-- No data collection or transmission
-- Fully client-side calculations
-- No external dependencies for core functionality
-- Suitable for secure environments
-- Regular security audits
-
-## 📋 System Requirements
-
-### Minimum Requirements
-- Any modern web browser (Chrome, Firefox, Safari, Edge)
-- JavaScript enabled
-- 50MB available storage for offline use
-
-### Recommended
-- Tablet or larger screen for optimal experience
-- Chrome or Safari for best performance
-- Stable internet for initial load
-
-## 🛠️ Development
-
-### Technology Stack
-- Pure JavaScript for maximum compatibility
-- No framework dependencies
-- Progressive Web App capabilities
+### Built With
+- Vanilla JavaScript (no frameworks)
+- HTML5 & CSS3
+- Progressive Web App features
 - Service Worker for offline functionality
 
-### Contributing
-While this is primarily a commercial product, we welcome:
+### Browser Support
+- Chrome (recommended)
+- Firefox
+- Safari
+- Edge
+- Any modern mobile browser
+
+## 📋 Calculations
+
+The calculator uses standard conversion factors:
+- 1 lb·ft = 12 lb·in
+- 1 N·m = 8.8507 lb·in
+- 1 kg·cm = 0.8679 lb·in
+
+Percentage ranges and rounding are applied as pure mathematics based on user input.
+
+## 🤝 Contributing
+
+We welcome:
 - Bug reports
 - Feature suggestions
-- Integration proposals
-- Partnership inquiries
+- UI/UX improvements
+- Translation help
 
 ## 📄 License
 
-This software is proprietary and confidential. All rights reserved by CiphracoreSystems.
+© 2024 CiphracoreSystems. All Rights Reserved.
 
-Unauthorized copying, modification, or distribution is strictly prohibited.
-
-For licensing inquiries: ciphracore@protonmail.com
-
-## 🏆 Recognition
-
-Trusted by aviation maintenance professionals worldwide for:
-- Accuracy and reliability
-- Ease of use in field conditions
-- Consistent updates and support
-- Professional-grade features
+This is proprietary software. Redistribution without permission is prohibited.
 
 ---
 
 <div align="center">
   
-  **© 2024 CiphracoreSystems. All Rights Reserved.**
+  **© 2024 CiphracoreSystems**
   
-  Built with precision for aviation professionals.
+  A simple tool for torque unit conversion.
   
-  [Website](https://ciphracoresystems.com) | [GitHub](https://github.com/CiphracoreSystems) | [Contact](mailto:ciphracore@protonmail.com)
+  [GitHub](https://github.com/CiphracoreSystems) | [Contact](mailto:ciphracore@protonmail.com)
   
 </div>
