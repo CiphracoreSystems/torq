@@ -387,7 +387,7 @@
       
       <h4>📩 Contact</h4>
       <p><strong>✉️ ciphracore@protonmail.com</strong><br/>
-      💬 "Describe your maintenance calculation challenge"</p>
+      💬 "Describe your maintenance software needs"</p>
       
       <p><strong>Response time:</strong> 24–48 hours<br/>
       <strong>Available for:</strong> Tool development, enterprise licensing, training integration, and tailored solutions.</p>
@@ -550,11 +550,53 @@
     closeMenu();
   });
 
-  // PWA install
+  // PWA install with iOS detection and debugging
   let deferredPrompt=null;
   const installBtn = $("#installBtn");
-  window.addEventListener("beforeinstallprompt", (e)=>{ e.preventDefault(); deferredPrompt=e; installBtn.hidden=false; });
-  installBtn?.addEventListener("click", async()=>{ if(!deferredPrompt) return; deferredPrompt.prompt(); await deferredPrompt.userChoice; deferredPrompt=null; installBtn.hidden=true; });
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+  const isInStandaloneMode = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+  
+  console.log('PWA Install Debug:', {
+    isIOS,
+    isInStandaloneMode,
+    userAgent: navigator.userAgent
+  });
+  
+  // For iOS, show install button with instructions since beforeinstallprompt doesn't fire
+  if (isIOS && !isInStandaloneMode) {
+    console.log('iOS detected - showing manual install button');
+    installBtn.hidden = false;
+    installBtn?.addEventListener("click", ()=>{
+      alert('To install on iOS:\n1. Tap the Share button (box with arrow)\n2. Scroll down and tap "Add to Home Screen"\n3. Tap "Add" to install');
+    });
+  } else if (!isIOS) {
+    // Standard PWA install for non-iOS devices
+    console.log('Non-iOS device - using standard PWA install');
+    window.addEventListener("beforeinstallprompt", (e)=>{ 
+      console.log('beforeinstallprompt event fired');
+      e.preventDefault(); 
+      deferredPrompt=e; 
+      installBtn.hidden=false; 
+    });
+    
+    installBtn?.addEventListener("click", async()=>{ 
+      console.log('Install button clicked', deferredPrompt);
+      if(!deferredPrompt) {
+        console.log('No deferred prompt available');
+        return;
+      }
+      deferredPrompt.prompt(); 
+      const result = await deferredPrompt.userChoice;
+      console.log('User choice:', result);
+      deferredPrompt=null; 
+      installBtn.hidden=true; 
+    });
+  }
+  
+  // Log if already installed
+  if (isInStandaloneMode) {
+    console.log('App is already installed/in standalone mode');
+  }
 
   // Persist OEM rounding
   oemRounding.checked = localStorage.getItem("oem_round")==="1";
@@ -760,8 +802,14 @@
     }
   });
 
-  // Service worker
-  if('serviceWorker' in navigator){ navigator.serviceWorker.register('./sw.js').catch(()=>{}); }
+  // Service worker with debugging
+  if('serviceWorker' in navigator){ 
+    navigator.serviceWorker.register('./sw.js')
+      .then(reg => console.log('Service Worker registered:', reg))
+      .catch(err => console.error('Service Worker registration failed:', err)); 
+  } else {
+    console.log('Service Worker not supported');
+  }
   compute();
 })();
 </script>
