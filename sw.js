@@ -1,5 +1,5 @@
-// TorqSpec Pro v1.6 - Service Worker with proper update mechanism
-const CACHE_VERSION = 'v1.6';
+// TorqSpec Pro v1.6.1 - Service Worker with proper update mechanism
+const CACHE_VERSION = 'v1.6.1';
 const CACHE_NAME = `torqspec-${CACHE_VERSION}`;
 const ASSETS = [
   './',
@@ -28,38 +28,46 @@ self.addEventListener('activate', event => {
   );
 });
 
-// Fetch - serve from cache, fallback to network, update cache
+// Fetch - network-first for HTML, stale-while-revalidate for assets
 self.addEventListener('fetch', event => {
-  event.respondWith(
-    caches.match(event.request).then(cachedResponse => {
-      // Return cached response if available
-      if (cachedResponse) {
-        // Also fetch from network and update cache in background
-        fetch(event.request).then(networkResponse => {
+  const url = new URL(event.request.url);
+  const isHTML = event.request.mode === 'navigate' ||
+                 url.pathname.endsWith('.html') ||
+                 url.pathname === '/' ||
+                 url.pathname === '';
+
+  if (isHTML) {
+    // Network-first for HTML - ensures users get latest version
+    event.respondWith(
+      fetch(event.request)
+        .then(networkResponse => {
           if (networkResponse && networkResponse.ok) {
+            const responseClone = networkResponse.clone();
             caches.open(CACHE_NAME).then(cache => {
-              cache.put(event.request, networkResponse);
+              cache.put(event.request, responseClone);
             });
           }
-        }).catch(() => {});
-        return cachedResponse;
-      }
+          return networkResponse;
+        })
+        .catch(() => caches.match(event.request) || caches.match('./index.html'))
+    );
+  } else {
+    // Stale-while-revalidate for other assets
+    event.respondWith(
+      caches.match(event.request).then(cachedResponse => {
+        const fetchPromise = fetch(event.request).then(networkResponse => {
+          if (networkResponse && networkResponse.ok) {
+            caches.open(CACHE_NAME).then(cache => {
+              cache.put(event.request, networkResponse.clone());
+            });
+          }
+          return networkResponse;
+        }).catch(() => cachedResponse);
 
-      // Not in cache - fetch from network
-      return fetch(event.request).then(networkResponse => {
-        if (networkResponse && networkResponse.ok) {
-          const responseClone = networkResponse.clone();
-          caches.open(CACHE_NAME).then(cache => {
-            cache.put(event.request, responseClone);
-          });
-        }
-        return networkResponse;
-      }).catch(() => {
-        // Offline fallback
-        return caches.match('./index.html');
-      });
-    })
-  );
+        return cachedResponse || fetchPromise;
+      })
+    );
+  }
 });
 
 // Listen for skip waiting message from main thread
