@@ -34,9 +34,9 @@
   h1{font-size:1.05rem; margin:0; line-height:1.1}
   .badge{font-size:.7rem; padding:2px 8px; border-radius:999px; border:1px solid var(--border); color:var(--muted); display:inline-block}
   .toolbar{display:flex; gap:6px; align-items:center}
-  .btn, button{background:var(--btn); color:var(--btntext); border:1px solid var(--border); border-radius:10px; padding:8px 10px; cursor:pointer}
+  .btn, button{background:var(--btn); color:var(--btntext); border:1px solid var(--border); border-radius:10px; padding:10px 12px; min-height:44px; cursor:pointer}
   .btn:focus-visible{outline:var(--focus)}
-  .iconbtn{display:inline-flex; align-items:center; justify-content:center; width:38px; height:38px; padding:0; border-radius:10px}
+  .iconbtn{display:inline-flex; align-items:center; justify-content:center; width:44px; height:44px; padding:0; border-radius:10px}
   .menu{position:relative}
   .menu-panel{
     position:absolute; right:0; top:46px; width:min(90vw,320px);
@@ -45,8 +45,8 @@
   }
   .menu.open .menu-panel{display:block}
   .menu .row{display:flex; align-items:center; justify-content:space-between; gap:8px; padding:6px 0}
-  .toggle{display:inline-flex; align-items:center; gap:8px}
-  .toggle input{accent-color:var(--accent)}
+  .toggle{display:inline-flex; align-items:center; gap:8px; min-height:44px; padding:8px; cursor:pointer}
+  .toggle input{accent-color:var(--accent); width:20px; height:20px; cursor:pointer}
   .card{background:var(--card); border:1px solid var(--border); border-radius:16px; box-shadow:var(--shadow); padding:12px}
   label{display:block; font-size:.85rem; color:var(--muted); margin-bottom:6px}
   input[type="text"],input[type="number"],select{
@@ -114,9 +114,18 @@
     font-size: 28px;
     font-weight: bold;
     cursor: pointer;
-    line-height: 20px;
+    line-height: 44px;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    margin: -10px -10px 0 0;
   }
-  .close:hover { color: var(--text); }
+  .close:hover { color: var(--text); background: var(--border); }
+  .modal-footer { margin-top: 20px; text-align: center; }
+  .modal-footer .btn { width: 100%; }
 
   @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
   @keyframes slideIn { from {transform: translateY(-50px);} to {transform: translateY(0);} }
@@ -141,14 +150,46 @@
   .help .help-section h3{margin:6px 0; font-size:.95rem}
   .help .help-section ul{margin:6px 0 0 18px}
   .help .help-section li{margin:6px 0}
+
+  /* Update notification banner */
+  .update-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--accent);
+    color: #fff;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    z-index: 1001;
+    animation: slideUp 0.3s ease;
+  }
+  .update-banner.hidden { display: none; }
+  .update-banner button {
+    background: rgba(255,255,255,0.2);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.3);
+    white-space: nowrap;
+  }
+  .update-banner button:hover { background: rgba(255,255,255,0.3); }
+  @keyframes slideUp { from {transform: translateY(100%);} to {transform: translateY(0);} }
 </style>
 </head>
 <body>
+<!-- Update notification banner -->
+<div id="updateBanner" class="update-banner hidden">
+  <span data-i18n="updateAvailable">Update available!</span>
+  <button id="updateBtn" data-i18n="tapToUpdate">Tap to update</button>
+</div>
+
 <div class="shell">
 <div class="wrap">
   <header>
     <div class="brand">
-      <h1 data-i18n="title">TorqSpec Pro <span style="opacity:0.4; font-size:0.7em; font-weight:normal;">v1.5</span></h1>
+      <h1 data-i18n="title">TorqSpec Pro <span style="opacity:0.4; font-size:0.7em; font-weight:normal;">v1.6</span></h1>
       <div class="pill" id="kpi"></div>
     </div>
     <div class="toolbar">
@@ -184,6 +225,10 @@
             <span data-i18n="shareApp">Share App</span>
             <button id="shareBtn" class="btn" data-i18n="share">Share</button>
           </div>
+          <div class="row">
+            <span data-i18n="checkUpdates">Updates</span>
+            <button id="checkUpdateBtn" class="btn" data-i18n="checkNow">Check Now</button>
+          </div>
         </div>
       </div>
     </div>
@@ -193,11 +238,11 @@
   <section class="card controls" aria-label="Inputs">
     <div>
       <label for="valueLow" data-i18n="valueLow">Torque Value (or Low)</label>
-      <input id="valueLow" type="number" inputmode="decimal" step="any" min="0" placeholder="e.g., 12.5">
+      <input id="valueLow" type="number" inputmode="decimal" pattern="[0-9]*\.?[0-9]*" enterkeyhint="next" step="any" min="0" placeholder="e.g., 12.5">
     </div>
     <div>
       <label for="valueHigh" data-i18n="valueHigh">High Value (optional)</label>
-      <input id="valueHigh" type="number" inputmode="decimal" step="any" min="0" placeholder="Leave blank for single value">
+      <input id="valueHigh" type="number" inputmode="decimal" pattern="[0-9]*\.?[0-9]*" enterkeyhint="done" step="any" min="0" placeholder="Leave blank for single value">
       <div id="valueHelp" class="footer" data-i18n="valueHelp">Enter <b>Low</b> only for single value, or <b>both</b> for a range.</div>
     </div>
     <div>
@@ -228,7 +273,7 @@
     </div>
     <div>
       <label for="resolution" data-i18n="resolution">Tool Resolution</label>
-      <input id="resolution" type="number" step="any" min="0" placeholder="e.g., 0.1 for N·m, 1 for lbf·in">
+      <input id="resolution" type="number" inputmode="decimal" pattern="[0-9]*\.?[0-9]*" enterkeyhint="done" step="any" min="0" placeholder="e.g., 0.1 for N·m, 1 for lbf·in">
       <div class="footer" data-i18n="resolutionHelp">Graduation size on your wrench (leave blank to skip setpoint rounding).</div>
     </div>
     <div>
@@ -318,6 +363,9 @@
       
       <p><strong>Safety Notice:</strong> Torque values in this calculator are intentionally rounded UP to provide a slight safety margin. Always verify proper torque specifications and procedures with approved maintenance documentation.</p>
     </div>
+    <div class="modal-footer">
+      <button class="btn close-modal" data-i18n="iUnderstand">I Understand</button>
+    </div>
   </div>
 </div>
 
@@ -333,7 +381,7 @@
   // Simple i18n
   const dict = {
     en: {
-      title: "TorqSpec Pro <span style='opacity:0.4; font-size:0.7em; font-weight:normal;'>v1.5</span>",
+      title: "TorqSpec Pro <span style='opacity:0.4; font-size:0.7em; font-weight:normal;'>v1.6</span>",
       oemRounding: "OEM Rounding", theme: "Theme", themeBtnLight: "Light", themeBtnDark: "Dark",
       language: "Language", install: "Install", shareApp: "Share App", share: "Share",
       valueLow: "Torque Value (or Low)", valueHigh: "High Value (optional)",
@@ -352,10 +400,17 @@
       helpNotesHeader: "Notes",
       helpNoteLayout: "Mobile layout: width is phone-sized; content scrolls vertically.",
       helpNotePrefs: "Preferences (theme/language) are saved for next sessions.",
-      helpNoteOffline: "Offline mode works after first load or installation."
+      helpNoteOffline: "Offline mode works after first load or installation.",
+      iUnderstand: "I Understand",
+      updateAvailable: "Update available!",
+      tapToUpdate: "Tap to update",
+      checkUpdates: "Updates",
+      checkNow: "Check Now",
+      checking: "Checking...",
+      upToDate: "Up to date!"
     },
     es: {
-      title: "TorqSpec Pro <span style='opacity:0.4; font-size:0.7em; font-weight:normal;'>v1.5</span>",
+      title: "TorqSpec Pro <span style='opacity:0.4; font-size:0.7em; font-weight:normal;'>v1.6</span>",
       oemRounding: "Redondeo OEM", theme: "Tema", themeBtnLight: "Claro", themeBtnDark: "Oscuro",
       language: "Idioma", install: "Instalar", shareApp: "Compartir App", share: "Compartir",
       valueLow: "Valor de Torque (o Bajo)", valueHigh: "Valor Alto (opcional)",
@@ -374,7 +429,14 @@
       helpNotesHeader: "Notas",
       helpNoteLayout: "Diseño móvil: ancho del tamaño de teléfono; el contenido hace scroll vertical.",
       helpNotePrefs: "Las preferencias (tema/idioma) se guardan para futuras sesiones.",
-      helpNoteOffline: "El modo sin conexión funciona tras la primera carga o instalación."
+      helpNoteOffline: "El modo sin conexión funciona tras la primera carga o instalación.",
+      iUnderstand: "Entendido",
+      updateAvailable: "¡Actualización disponible!",
+      tapToUpdate: "Toca para actualizar",
+      checkUpdates: "Actualizaciones",
+      checkNow: "Verificar",
+      checking: "Verificando...",
+      upToDate: "¡Al día!"
     }
   };
   const langKey="torque_lang";
@@ -632,30 +694,125 @@
   const modal = $("#disclaimerModal");
   const disclaimerLink = $("#disclaimerLink");
   const closeBtn = $(".close");
+  const closeModalBtn = $(".close-modal");
+
+  function closeModal() {
+    modal.style.display = "none";
+  }
 
   disclaimerLink.addEventListener("click", () => {
     modal.style.display = "block";
   });
 
-  closeBtn.addEventListener("click", () => {
-    modal.style.display = "none";
-  });
+  closeBtn.addEventListener("click", closeModal);
+  closeModalBtn?.addEventListener("click", closeModal);
 
   window.addEventListener("click", (e) => {
-    if (e.target === modal) {
-      modal.style.display = "none";
-    }
+    if (e.target === modal) closeModal();
   });
 
   // Close modal with Escape key
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && modal.style.display === "block") {
-      modal.style.display = "none";
+    if (e.key === "Escape" && modal.style.display === "block") closeModal();
+  });
+
+  // PWA Update System
+  const updateBanner = $("#updateBanner");
+  const updateBtn = $("#updateBtn");
+  const checkUpdateBtn = $("#checkUpdateBtn");
+  let swRegistration = null;
+  let newWorkerWaiting = null;
+
+  function showUpdateBanner() {
+    updateBanner?.classList.remove("hidden");
+  }
+
+  function hideUpdateBanner() {
+    updateBanner?.classList.add("hidden");
+  }
+
+  // Service worker registration with update detection
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./sw.js').then(registration => {
+      swRegistration = registration;
+
+      // Check for updates on page load
+      registration.update();
+
+      // Check for updates periodically (every hour)
+      setInterval(() => {
+        registration.update();
+      }, 60 * 60 * 1000);
+
+      // Listen for new service worker waiting
+      registration.addEventListener('updatefound', () => {
+        const newWorker = registration.installing;
+        newWorker.addEventListener('statechange', () => {
+          if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+            // New version available
+            newWorkerWaiting = newWorker;
+            showUpdateBanner();
+          }
+        });
+      });
+
+      // Check if there's already a waiting worker
+      if (registration.waiting) {
+        newWorkerWaiting = registration.waiting;
+        showUpdateBanner();
+      }
+    }).catch(() => {});
+
+    // Handle controller change (reload when new SW takes over)
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+      window.location.reload();
+    });
+  }
+
+  // Update button click - activate new service worker
+  updateBtn?.addEventListener("click", () => {
+    if (newWorkerWaiting) {
+      newWorkerWaiting.postMessage({ type: 'SKIP_WAITING' });
+    } else {
+      window.location.reload();
+    }
+    hideUpdateBanner();
+  });
+
+  // Manual check for updates button
+  checkUpdateBtn?.addEventListener("click", async () => {
+    const lang = document.documentElement.lang || "en";
+    const originalText = checkUpdateBtn.textContent;
+    checkUpdateBtn.textContent = dict[lang].checking;
+    checkUpdateBtn.disabled = true;
+    closeMenu();
+
+    try {
+      if (swRegistration) {
+        await swRegistration.update();
+        // If no update found (no updatefound event fired), show "up to date"
+        setTimeout(() => {
+          if (!newWorkerWaiting) {
+            checkUpdateBtn.textContent = dict[lang].upToDate;
+            setTimeout(() => {
+              checkUpdateBtn.textContent = originalText;
+              checkUpdateBtn.disabled = false;
+            }, 2000);
+          } else {
+            checkUpdateBtn.textContent = originalText;
+            checkUpdateBtn.disabled = false;
+          }
+        }, 1000);
+      } else {
+        checkUpdateBtn.textContent = originalText;
+        checkUpdateBtn.disabled = false;
+      }
+    } catch (err) {
+      checkUpdateBtn.textContent = originalText;
+      checkUpdateBtn.disabled = false;
     }
   });
 
-  // Service worker
-  if('serviceWorker' in navigator){ navigator.serviceWorker.register('./sw.js').catch(()=>{}); }
   compute();
 })();
 </script>
